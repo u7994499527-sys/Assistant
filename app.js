@@ -675,9 +675,40 @@ const isInStandaloneMode = () =>
   (window.navigator.standalone) ||
   document.referrer.includes('android-app://');
 
+// Gestion du thème sombre
+function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const icon = themeToggle.querySelector('i');
+    
+    // Vérifier si un thème est sauvegardé
+    const isDark = localStorage.getItem('darkTheme') === 'true';
+    if (isDark) {
+        document.documentElement.classList.add('dark');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+    
+    // Gérer le changement de thème
+    themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        localStorage.setItem('darkTheme', isDarkMode);
+        
+        // Changer l'icône
+        if (isDarkMode) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    });
+}
+
 // Démarrer l'application lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
   init();
+  initTheme();
   
   // Afficher la bannière d'installation sur mobile
   if (isMobile && !isInStandaloneMode()) {

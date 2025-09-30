@@ -296,6 +296,84 @@ button:active {
     }
 }
 
+/* Styles pour le thème sombre */
+.dark {
+    color-scheme: dark;
+}
+
+.dark body {
+    background-color: #1a1a1a;
+    color: #e5e5e5;
+}
+
+.dark .bg-white {
+    background-color: #242424;
+}
+
+.dark .text-gray-800 {
+    color: #e5e5e5;
+}
+
+.dark .text-gray-600 {
+    color: #a0aec0;
+}
+
+.dark .text-gray-500 {
+    color: #a0aec0;
+}
+
+.dark .text-gray-400 {
+    color: #cbd5e0;
+}
+
+.dark .border-gray-100 {
+    border-color: #2d2d2d;
+}
+
+.dark .border-gray-200 {
+    border-color: #2d2d2d;
+}
+
+.dark .bg-gray-50 {
+    background-color: #1f1f1f;
+}
+
+.dark .bg-gradient-to-r {
+    background-image: linear-gradient(to right, rgba(30, 64, 175, 0.1), rgba(109, 40, 217, 0.1));
+}
+
+.dark .shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dark .hover\:bg-white:hover {
+    background-color: #333333 !important;
+}
+
+.dark #play-btn {
+    background-color: #333333;
+}
+
+.dark #play-btn:hover {
+    background-color: #404040;
+}
+
+.dark #theme-toggle:hover {
+    background-color: #333333;
+}
+
+.dark input[type="range"] {
+    background-color: #404040;
+}
+
+.dark input[type="range"]::-webkit-slider-thumb {
+    background-color: #60a5fa;
+}
+
+.dark .station-info {
+    background-color: #242424;
+}
+
 /* Effet de verre pour certains éléments */
 .glass-effect {
     background: rgba(255, 255, 255, 0.9);
