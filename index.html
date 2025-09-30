@@ -31,18 +31,27 @@
 </head>
 <body class="bg-white text-gray-800 min-h-screen flex flex-col">
     <!-- En-tête du site -->
-    <header class="bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-4 px-6 shadow-md">
+    <header class="bg-gray-100 text-gray-800 py-4 px-6 shadow-md">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <img src="icone.png" alt="Logo Radio en Ligne" class="w-12 h-12 object-contain">
                 <div>
                     <h1 class="text-2xl font-bold">Radio en Ligne</h1>
-                    <p class="text-sm text-white/90">Écoutez vos stations préférées</p>
+                    <p class="text-sm text-gray-600">Écoutez vos stations préférées</p>
                 </div>
             </div>
-            <!-- Badge PWA -->
-            <div class="hidden md:block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                <span class="text-sm"><i class="fas fa-broadcast-tower mr-2 text-red-500 animate-pulse"></i>En direct</span>
+            <!-- Boutons d'authentification -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="px-4 py-2 text-gray-600 hover:bg-white transition-colors">
+                    Se connecter
+                </button>
+                <button class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors font-medium">
+                    S'inscrire
+                </button>
+                <!-- Badge PWA -->
+                <div class="bg-white px-4 py-2">
+                    <span class="text-sm text-gray-700"><i class="fas fa-broadcast-tower mr-2 text-gray-500 animate-pulse"></i>En direct</span>
+                </div>
             </div>
         </div>
     </header>
@@ -54,7 +63,7 @@
         </button>
 
         <!-- Barre latérale (masquée par défaut sur mobile) -->
-        <div id="sidebar" class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:transform-none md:w-96 md:border-r md:border-gray-100 md:p-4 md:overflow-y-auto">
+        <div id="sidebar" class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:transform-none md:w-96 md:border-r md:border-gray-200 md:overflow-y-auto">
             <!-- En-tête mobile -->
             <div class="md:hidden flex items-center justify-between p-4 border-b border-gray-100">
                 <h2 class="text-xl font-semibold">Stations</h2>
@@ -73,7 +82,6 @@
             </div>
 
             <div class="p-4 md:p-0">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700">Radios disponibles</h3>
                 <div id="stations-list-left" class="space-y-4">
                     <!-- Stations de la barre gauche -->
                 </div>
@@ -84,13 +92,13 @@
         <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-30 hidden md:hidden"></div>
 
         <!-- Contenu principal -->
-        <div class="flex-1 p-4 md:p-8">
-            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+        <div class="flex-1">
+            <div class="bg-white shadow-sm overflow-hidden border-x border-gray-100">
             <!-- Affichage de la station en cours -->
-            <div id="now-playing" class="p-4 md:p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-100 backdrop-blur-sm">
+            <div id="now-playing" class="p-4 md:p-6 bg-gray-50 border-b border-gray-200">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div id="current-station-icon" class="w-16 h-16 bg-white rounded-lg overflow-hidden shadow-md flex items-center justify-center transform transition-transform duration-500 hover:scale-105 hover:rotate-3">
+                        <div id="current-station-icon" class="w-16 h-16 bg-white overflow-hidden shadow-md flex items-center justify-center transform transition-transform duration-500">
                             <i class="fas fa-broadcast-tower text-2xl text-gray-400"></i>
                         </div>
                         <div id="station-info">
@@ -105,7 +113,7 @@
             </div>
 
             <!-- Contrôles -->
-            <div class="p-6">
+            <div class="p-6 border-t border-gray-200">
                 <div class="flex items-center justify-center space-x-6 mb-6">
                     <button id="prev-btn" class="text-gray-400 hover:text-gray-600" title="Précédent">
                         <i class="fas fa-step-backward text-2xl"></i>
@@ -151,7 +159,6 @@
 
             <!-- Liste des stations -->
             <div class="border-t border-gray-200">
-                <h3 class="px-6 py-4 text-lg font-semibold bg-gray-50">Stations disponibles</h3>
                 <div id="stations-list" class="divide-y divide-gray-100">
                     <!-- Les stations seront ajoutées dynamiquement -->
                 </div>
@@ -193,8 +200,7 @@
         </div>
 
         <!-- Barre latérale droite -->
-        <div class="w-96 bg-white border-l border-gray-100 p-4 overflow-y-auto">
-            <h3 class="text-lg font-semibold mb-4 text-gray-700">Radios disponibles</h3>
+        <div class="w-96 bg-white border-l border-gray-200 overflow-y-auto">
             <div id="stations-list-right" class="space-y-4">
                 <!-- Stations de la barre droite -->
             </div>
