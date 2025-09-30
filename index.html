@@ -29,28 +29,28 @@
     <meta name="apple-mobile-web-app-title" content="Radio">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
-<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col transition-colors">
     <!-- En-tête du site -->
-    <header class="bg-gray-100 text-gray-800 py-4 px-6 shadow-md">
+    <header class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 py-4 px-6 shadow-md transition-colors">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <img src="icone.png" alt="Logo Radio en Ligne" class="w-12 h-12 object-contain">
                 <div>
                     <h1 class="text-2xl font-bold">Radio en Ligne</h1>
-                    <p class="text-sm text-gray-600">Écoutez vos stations préférées</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Écoutez vos stations préférées</p>
                 </div>
             </div>
             <!-- Boutons d'authentification -->
             <div class="hidden md:flex items-center space-x-4">
-                <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 transition-colors">
+                <button class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                     Se connecter
                 </button>
-                <button class="px-4 py-2 bg-gray-500 text-white hover:bg-gray-600 transition-colors font-medium">
+                <button class="px-4 py-2 bg-gray-500 dark:bg-gray-600 text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors font-medium">
                     S'inscrire
                 </button>
                 <!-- Badge PWA -->
-                <div class="bg-white px-4 py-2">
-                    <span class="text-sm text-gray-700"><i class="fas fa-broadcast-tower mr-2 text-gray-500 animate-pulse"></i>En direct</span>
+                <div class="bg-white dark:bg-gray-700 px-4 py-2 transition-colors">
+                    <span class="text-sm text-gray-700 dark:text-gray-300"><i class="fas fa-broadcast-tower mr-2 text-gray-500 dark:text-gray-400 animate-pulse"></i>En direct</span>
                 </div>
             </div>
         </div>
@@ -63,21 +63,21 @@
         </button>
 
         <!-- Barre latérale (masquée par défaut sur mobile) -->
-        <div id="sidebar" class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:transform-none md:w-96 md:border-r md:border-gray-200 md:overflow-y-auto">
+        <div id="sidebar" class="fixed inset-0 z-40 bg-white dark:bg-gray-800 transform -translate-x-full transition-all duration-300 ease-in-out md:relative md:transform-none md:w-96 md:border-r md:border-gray-200 dark:border-gray-700 md:overflow-y-auto">
             <!-- En-tête mobile -->
-            <div class="md:hidden flex items-center justify-between p-4 border-b border-gray-100">
-                <h2 class="text-xl font-semibold">Stations</h2>
-                <button id="close-sidebar" class="text-gray-500 hover:text-gray-700">
+            <div class="md:hidden flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors">
+                <h2 class="text-xl font-semibold dark:text-gray-100">Stations</h2>
+                <button id="close-sidebar" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
             <!-- Barre de recherche -->
-            <div class="sticky top-0 bg-white p-4 md:p-0 md:mb-4">
+            <div class="sticky top-0 bg-white dark:bg-gray-800 p-4 md:p-0 md:mb-4 transition-colors">
                 <div class="relative">
                     <input type="text" id="search-input" placeholder="Rechercher une station..." 
-                           class="w-full px-4 py-2 pr-10 border border-gray-200 focus:outline-none focus:border-blue-400 transition-colors">
-                    <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                           class="w-full px-4 py-2 pr-10 border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:border-gray-400 dark:focus:border-gray-500 transition-colors">
+                    <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
                 </div>
             </div>
 
@@ -93,9 +93,9 @@
 
         <!-- Contenu principal -->
         <div class="flex-1">
-            <div class="bg-white shadow-sm overflow-hidden border-x border-gray-100">
+            <div class="bg-white dark:bg-gray-800 shadow-sm overflow-hidden border-x border-gray-100 dark:border-gray-700 transition-colors">
             <!-- Affichage de la station en cours -->
-            <div id="now-playing" class="p-4 md:p-6 bg-gray-50 border-b border-gray-200">
+            <div id="now-playing" class="p-4 md:p-6 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div id="current-station-icon" class="w-16 h-16 bg-white overflow-hidden shadow-md flex items-center justify-center transform transition-transform duration-500">
@@ -165,12 +165,12 @@
             </div>
 
             <!-- Formulaire d'inscription -->
-            <div class="border-t border-gray-200 bg-gray-50 p-6">
+            <div class="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6 transition-colors">
                 <div class="max-w-md mx-auto">
-                    <h3 class="text-lg font-semibold mb-6 text-center">Inscrivez-vous pour plus de fonctionnalités</h3>
+                    <h3 class="text-lg font-semibold mb-6 text-center dark:text-gray-100">Inscrivez-vous pour plus de fonctionnalités</h3>
                     <form id="signup-form" class="space-y-4">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nom complet</label>
                             <input type="text" id="name" name="name" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent">
                         </div>
@@ -200,7 +200,7 @@
         </div>
 
         <!-- Barre latérale droite -->
-        <div class="w-96 bg-white border-l border-gray-200 overflow-y-auto">
+        <div class="w-96 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto transition-colors">
             <div id="stations-list-right" class="divide-y divide-gray-200">
                 <!-- Stations de la barre droite -->
             </div>
