@@ -184,7 +184,7 @@ function renderFavorites() {
                           onerror="this.onerror=null; this.src='${station.favicon}'; this.classList.add('p-2');">` :
                     station.favicon ?
                     `<img src="${station.favicon}" alt="${station.name}" class="w-full h-full object-contain p-2">` :
-                    '<i class="fas fa-broadcast-tower text-xl text-gray-400"></i>'}
+                    '<i class="fas fa-broadcast-tower text-xl text-gray-500"></i>'}
             </div>
             <div class="flex-1 min-w-0">
                 <h4 class="font-medium text-sm text-gray-800 truncate">${station.name}</h4>
@@ -290,7 +290,7 @@ function init() {
 function createEqualizer() {
     for (let i = 0; i < 12; i++) {
         const bar = document.createElement('div');
-        bar.className = 'w-1.5 bg-gradient-to-t from-blue-400 to-purple-400 rounded-t';
+        bar.className = 'w-1.5 bg-gradient-to-t from-gray-400 to-gray-300 rounded-t';
         bar.style.height = '8px';
         bar.style.animation = `equalizer${i % 3 + 1} 1.2s infinite ease-in-out`;
         bar.style.animationDelay = `${i * 0.1}s`;
@@ -362,12 +362,12 @@ function renderStationsList(searchQuery = '') {
                 ${station.logo ? 
                     `<img src="${station.logo}" alt="${station.name}" class="w-full h-full object-contain p-1" 
                           onerror="this.onerror=null; this.src='${station.favicon}'; this.classList.add('p-2'); this.onerror=function() {
-                              this.parentNode.innerHTML='<i class=&quot;fas fa-broadcast-tower text-3xl text-gray-400&quot;></i>';
+                              this.parentNode.innerHTML='<i class=&quot;fas fa-broadcast-tower text-3xl text-gray-500&quot;></i>';
                           }">` :
                     station.favicon ?
                     `<img src="${station.favicon}" alt="${station.name}" class="w-full h-full object-contain p-2" 
                           onerror="this.onerror=null; this.parentNode.innerHTML='<i class=&quot;fas fa-broadcast-tower text-3xl text-gray-400&quot;></i>';">` :
-                    '<i class="fas fa-broadcast-tower text-3xl text-gray-400"></i>'}
+                    '<i class="fas fa-broadcast-tower text-3xl text-gray-500"></i>'}
             </div>
             <div class="ml-4 flex-1">
                 <h4 class="font-medium text-gray-800">${station.name}</h4>
@@ -449,7 +449,7 @@ function loadStation(index) {
         currentStationIcon.innerHTML = `<img src="${station.favicon}" alt="${station.name}" class="w-full h-full object-contain p-2" 
             onerror="this.onerror=null; this.parentNode.innerHTML='<i class=&quot;fas fa-broadcast-tower text-2xl text-gray-400&quot;></i>';">`;
     } else {
-        currentStationIcon.innerHTML = '<i class="fas fa-broadcast-tower text-2xl text-gray-400"></i>';
+        currentStationIcon.innerHTML = '<i class="fas fa-broadcast-tower text-2xl text-gray-500"></i>';
     }
     
     // Mettre à jour la station active dans les listes avec animation
