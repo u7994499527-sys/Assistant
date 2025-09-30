@@ -268,6 +268,9 @@ function init() {
     // Charger les favoris depuis le stockage local
     loadFavorites();
     
+    // Initialiser la recherche
+    initSearch();
+    
     // Créer la liste des stations
     renderStationsList();
     
@@ -296,18 +299,56 @@ function createEqualizer() {
     }
 }
 
+// Fonction de recherche et filtrage des stations
+function filterStations(query) {
+    if (!query) return STATIONS;
+    
+    query = query.toLowerCase().trim();
+    return STATIONS.filter(station => 
+        station.name.toLowerCase().includes(query) ||
+        station.genre.toLowerCase().includes(query)
+    );
+}
+
+// Gestionnaire de la recherche
+function initSearch() {
+    const searchInput = document.getElementById('search-input');
+    let debounceTimeout;
+
+    searchInput.addEventListener('input', (e) => {
+        // Annuler le timeout précédent
+        if (debounceTimeout) clearTimeout(debounceTimeout);
+        
+        // Définir un nouveau timeout pour le debounce
+        debounceTimeout = setTimeout(() => {
+            const query = e.target.value;
+            renderStationsList(query);
+        }, 300); // Délai de 300ms pour éviter trop de rafraîchissements
+    });
+
+    // Empêcher la soumission du formulaire
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
+}
+
 // Afficher la liste des stations
-function renderStationsList() {
+function renderStationsList(searchQuery = '') {
     const leftList = document.getElementById('stations-list-left');
     const rightList = document.getElementById('stations-list-right');
     
     leftList.innerHTML = '';
     rightList.innerHTML = '';
     
+    // Filtrer les stations selon la recherche
+    const filteredStations = filterStations(searchQuery);
+    
     // Calculer le milieu pour répartir équitablement les stations
-    const middleIndex = Math.ceil(STATIONS.length / 2);
+    const middleIndex = Math.ceil(filteredStations.length / 2);
 
-    STATIONS.forEach((station, index) => {
+    filteredStations.forEach((station, index) => {
         const stationElement = document.createElement('div');
         stationElement.className = `flex items-center p-4 hover:bg-white cursor-pointer transition-all duration-500 transform hover:scale-102 relative ${index === currentStationIndex ? 'bg-white shadow-md' : ''}`;
         
