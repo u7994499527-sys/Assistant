@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Écoutez vos stations de radio préférées en direct">
+    <meta name="theme-color" content="#1a202c">
+    <title>Radio en Ligne - Écoutez la radio en direct</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icone.png">
+    <link rel="apple-touch-icon" href="icone.png">
+    
+    <!-- Préchargement des polices et ressources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Radio en Ligne">
+    <meta name="apple-mobile-web-app-title" content="Radio">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body class="bg-white text-gray-800 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Barre latérale gauche -->
+        <div class="w-96 bg-white border-r border-gray-100 p-4 overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-4 text-gray-700">France Info & Inter</h3>
+            <div id="stations-list-left" class="space-y-4">
+                <!-- Stations de la barre gauche -->
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="flex-1 p-8">
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+            <!-- Affichage de la station en cours -->
+            <div id="now-playing" class="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-100 backdrop-blur-sm">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div id="current-station-icon" class="w-16 h-16 bg-white rounded-lg overflow-hidden shadow-md flex items-center justify-center transform transition-transform duration-500 hover:scale-105 hover:rotate-3">
+                            <i class="fas fa-broadcast-tower text-2xl text-gray-400"></i>
+                        </div>
+                        <div id="station-info">
+                            <h2 id="station-name" class="text-2xl font-bold text-gray-800">Sélectionnez une station</h2>
+                            <p id="song-info" class="text-gray-600">Aucune lecture en cours</p>
+                        </div>
+                    </div>
+                    <div id="equalizer" class="flex items-end h-12 space-x-1">
+                        <!-- Les barres de l'égaliseur seront ajoutées dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contrôles -->
+            <div class="p-6">
+                <div class="flex items-center justify-center space-x-6 mb-6">
+                    <button id="prev-btn" class="text-gray-400 hover:text-gray-600" title="Précédent">
+                        <i class="fas fa-step-backward text-2xl"></i>
+                    </button>
+                    <button id="play-btn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full w-16 h-16 title="Lecture">
+                        <i class="fas fa-play text-2xl"></i>
+                    </button>
+                    <button id="next-btn" class="text-gray-400 hover:text-gray-600" title="Suivant">
+                        <i class="fas fa-step-forward text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Barre de progression -->
+                <div class="mb-6">
+                    <div class="flex justify-between text-sm text-gray-400 mb-1">
+                        <span id="current-time">00:00</span>
+                        <span id="duration">--:--</span>
+                    </div>
+                    <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-blue-500 w-0"></div>
+                    </div>
+                </div>
+
+                <!-- Contrôle du volume -->
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-volume-up text-gray-400"></i>
+                    <input type="range" id="volume" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                </div>
+            </div>
+
+            <!-- Section des favoris -->
+            <div class="border-t border-gray-200 bg-gray-50">
+                <h3 class="px-6 py-4 text-lg font-semibold">Vos Favoris</h3>
+                <div id="favorites-list" class="px-6 pb-4 flex flex-wrap gap-4">
+                    <!-- Les favoris seront ajoutés dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Liste des stations -->
+            <div class="border-t border-gray-200">
+                <h3 class="px-6 py-4 text-lg font-semibold bg-gray-50">Stations disponibles</h3>
+                <div id="stations-list" class="divide-y divide-gray-100">
+                    <!-- Les stations seront ajoutées dynamiquement -->
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Barre latérale droite -->
+        <div class="w-96 bg-white border-l border-gray-100 p-4 overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-4 text-gray-700">France Musique & FIP</h3>
+            <div id="stations-list-right" class="space-y-4">
+                <!-- Stations de la barre droite -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
