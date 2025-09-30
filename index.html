@@ -29,8 +29,25 @@
     <meta name="apple-mobile-web-app-title" content="Radio">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
-<body class="bg-white text-gray-800 min-h-screen">
-    <div class="flex min-h-screen flex-col md:flex-row relative">
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+    <!-- En-tête du site -->
+    <header class="bg-gradient-to-r from-blue-400 to-indigo-400 text-white py-4 px-6 shadow-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="icone.png" alt="Logo Radio en Ligne" class="w-12 h-12 object-contain">
+                <div>
+                    <h1 class="text-2xl font-bold">Radio en Ligne</h1>
+                    <p class="text-sm text-white/90">Écoutez vos stations préférées</p>
+                </div>
+            </div>
+            <!-- Badge PWA -->
+            <div class="hidden md:block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span class="text-sm"><i class="fas fa-broadcast-tower mr-2 text-red-500 animate-pulse"></i>En direct</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 flex-col md:flex-row relative">
         <!-- Menu mobile -->
         <button id="mobile-menu-button" class="md:hidden fixed bottom-4 right-4 bg-blue-500 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-50">
             <i class="fas fa-list"></i>
