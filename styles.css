@@ -88,23 +88,114 @@ button:active {
     animation: spin 1s linear infinite;
 }
 
-/* Styles pour les écrans mobiles */
-@media (max-width: 640px) {
-    .container {
+/* Styles pour les écrans mobiles et tablettes */
+@media (max-width: 1024px) {
+    /* Cache les barres latérales sur mobile et tablette */
+    .w-96 {
+        display: none;
+    }
+
+    /* Ajuste la largeur du contenu principal */
+    .flex-1 {
+        width: 100%;
         padding: 1rem;
     }
-    
-    #now-playing {
-        padding: 1rem;
+
+    /* Réduit la taille des marges */
+    .max-w-2xl {
+        margin: 0;
     }
-    
-    .text-4xl {
-        font-size: 1.875rem;
-    }
-    
+
+    /* Ajuste la taille des icônes et du texte */
     .w-16, .h-16 {
-        width: 3.5rem;
-        height: 3.5rem;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    /* Réduit l'espacement entre les éléments */
+    .space-x-6 {
+        gap: 1rem;
+    }
+
+    /* Optimise l'affichage des favoris */
+    #favorites-list {
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #favorites-list > div {
+        flex: 0 0 auto;
+        width: 150px;
+    }
+}
+
+/* Styles spécifiques aux petits écrans mobiles */
+@media (max-width: 640px) {
+    /* Ajuste la taille du texte */
+    #station-name {
+        font-size: 1.25rem;
+    }
+
+    #song-info {
+        font-size: 0.875rem;
+    }
+
+    /* Réduit la taille des contrôles */
+    #play-btn {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .text-2xl {
+        font-size: 1.25rem;
+    }
+
+    /* Optimise l'espacement */
+    .p-6 {
+        padding: 1rem;
+    }
+
+    .p-4 {
+        padding: 0.75rem;
+    }
+
+    /* Ajuste la liste des stations */
+    #stations-list > div {
+        padding: 0.75rem;
+    }
+
+    /* Améliore la lisibilité du volume */
+    #volume {
+        height: 1.5rem;
+    }
+}
+
+/* Styles pour les tablettes en mode portrait */
+@media (min-width: 641px) and (max-width: 768px) {
+    .max-w-2xl {
+        padding: 0 1rem;
+    }
+
+    #station-name {
+        font-size: 1.5rem;
+    }
+}
+
+/* Styles pour l'orientation paysage sur mobile */
+@media (max-height: 500px) {
+    .min-h-screen {
+        min-height: auto;
+    }
+
+    #now-playing {
+        padding: 0.75rem;
+    }
+
+    .space-y-4 {
+        margin-top: 0.5rem;
     }
 }
 
