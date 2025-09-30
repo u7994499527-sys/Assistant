@@ -116,15 +116,9 @@ button:active {
 
 /* Styles pour les écrans mobiles et tablettes */
 @media (max-width: 1024px) {
-    /* Cache les barres latérales sur mobile et tablette */
-    .w-96 {
-        display: none;
-    }
-
     /* Ajuste la largeur du contenu principal */
     .flex-1 {
         width: 100%;
-        padding: 1rem;
     }
 
     /* Réduit la taille des marges */
@@ -150,11 +144,41 @@ button:active {
         overflow-x: auto;
         padding-bottom: 1rem;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    #favorites-list::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
     }
 
     #favorites-list > div {
         flex: 0 0 auto;
-        width: 150px;
+        width: calc(50vw - 2rem);
+        min-width: 150px;
+        max-width: 200px;
+    }
+
+    /* Style du bouton menu mobile */
+    #mobile-menu-button {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s ease;
+    }
+
+    #mobile-menu-button:active {
+        transform: scale(0.95);
+    }
+
+    /* Optimisations pour la barre latérale mobile */
+    #sidebar {
+        height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Amélioration du contraste de l'overlay en mode sombre */
+    .dark #sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.7);
     }
 }
 

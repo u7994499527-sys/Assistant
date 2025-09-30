@@ -30,26 +30,47 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body class="bg-white text-gray-800 min-h-screen">
-    <div class="flex min-h-screen flex-col md:flex-row">
-        <!-- Barre latérale gauche -->
-        <div class="w-96 bg-white border-r border-gray-100 p-4 overflow-y-auto">
-            <div class="mb-4">
+    <div class="flex min-h-screen flex-col md:flex-row relative">
+        <!-- Menu mobile -->
+        <button id="mobile-menu-button" class="md:hidden fixed bottom-4 right-4 bg-blue-500 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center z-50">
+            <i class="fas fa-list"></i>
+        </button>
+
+        <!-- Barre latérale (masquée par défaut sur mobile) -->
+        <div id="sidebar" class="fixed inset-0 z-40 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:transform-none md:w-96 md:border-r md:border-gray-100 md:p-4 md:overflow-y-auto">
+            <!-- En-tête mobile -->
+            <div class="md:hidden flex items-center justify-between p-4 border-b border-gray-100">
+                <h2 class="text-xl font-semibold">Stations</h2>
+                <button id="close-sidebar" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Barre de recherche -->
+            <div class="sticky top-0 bg-white p-4 md:p-0 md:mb-4">
                 <div class="relative">
-                    <input type="text" id="search-input" placeholder="Rechercher une station..." class="w-full px-4 py-2 pr-10 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-400 transition-colors">
+                    <input type="text" id="search-input" placeholder="Rechercher une station..." 
+                           class="w-full px-4 py-2 pr-10 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-400 transition-colors">
                     <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
             </div>
-            <h3 class="text-lg font-semibold mb-4 text-gray-700">Radios disponibles</h3>
-            <div id="stations-list-left" class="space-y-4">
-                <!-- Stations de la barre gauche -->
+
+            <div class="p-4 md:p-0">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Radios disponibles</h3>
+                <div id="stations-list-left" class="space-y-4">
+                    <!-- Stations de la barre gauche -->
+                </div>
             </div>
         </div>
 
+        <!-- Overlay pour le menu mobile -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-30 hidden md:hidden"></div>
+
         <!-- Contenu principal -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-4 md:p-8">
             <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
             <!-- Affichage de la station en cours -->
-            <div id="now-playing" class="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-100 backdrop-blur-sm">
+            <div id="now-playing" class="p-4 md:p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-100 backdrop-blur-sm">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div id="current-station-icon" class="w-16 h-16 bg-white rounded-lg overflow-hidden shadow-md flex items-center justify-center transform transition-transform duration-500 hover:scale-105 hover:rotate-3">

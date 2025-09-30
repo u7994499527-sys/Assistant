@@ -746,15 +746,59 @@ function initTheme() {
     });
 }
 
+// Gérer le menu mobile
+function initMobileMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const closeSidebarButton = document.getElementById('close-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // Gestionnaires d'événements pour le menu mobile
+    mobileMenuButton.addEventListener('click', openSidebar);
+    closeSidebarButton.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    // Fermer le menu si on clique sur une station
+    sidebar.addEventListener('click', (e) => {
+        if (e.target.closest('#stations-list-left') || e.target.closest('#stations-list-right')) {
+            if (window.innerWidth < 768) { // Uniquement sur mobile
+                closeSidebar();
+            }
+        }
+    });
+
+    // Gérer le redimensionnement de la fenêtre
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) { // Breakpoint md de Tailwind
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
 // Démarrer l'application lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
-  init();
-  initTheme();
-  
-  // Afficher la bannière d'installation sur mobile
-  if (isMobile && !isInStandaloneMode()) {
-    showInstallBanner();
-  }
+    init();
+    initTheme();
+    initMobileMenu();
+    
+    // Afficher la bannière d'installation sur mobile
+    if (isMobile && !isInStandaloneMode()) {
+        showInstallBanner();
+    }
 });
 
 // Afficher la bannière d'installation
