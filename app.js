@@ -176,9 +176,9 @@ function renderFavorites() {
     
     favoriteStations.forEach(station => {
         const favoriteElement = document.createElement('div');
-        favoriteElement.className = 'bg-white rounded-lg shadow-sm p-3 flex items-center gap-3 cursor-pointer hover:shadow-md transition-shadow transform hover:scale-102';
+        favoriteElement.className = 'bg-white shadow-sm p-3 flex items-center gap-3 cursor-pointer hover:shadow-md transition-shadow';
         favoriteElement.innerHTML = `
-            <div class="w-10 h-10 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center">
+            <div class="w-10 h-10 bg-gray-50 overflow-hidden flex items-center justify-center">
                 ${station.logo ? 
                     `<img src="${station.logo}" alt="${station.name}" class="w-full h-full object-contain p-1" 
                           onerror="this.onerror=null; this.src='${station.favicon}'; this.classList.add('p-2');">` :
@@ -290,7 +290,7 @@ function init() {
 function createEqualizer() {
     for (let i = 0; i < 12; i++) {
         const bar = document.createElement('div');
-        bar.className = 'w-1.5 bg-gradient-to-t from-gray-400 to-gray-300 rounded-t';
+        bar.className = 'w-1.5 bg-gradient-to-t from-gray-400 to-gray-300';
         bar.style.height = '8px';
         bar.style.animation = `equalizer${i % 3 + 1} 1.2s infinite ease-in-out`;
         bar.style.animationDelay = `${i * 0.1}s`;
@@ -350,7 +350,7 @@ function renderStationsList(searchQuery = '') {
 
     filteredStations.forEach((station, index) => {
         const stationElement = document.createElement('div');
-        stationElement.className = `flex items-center p-4 hover:bg-white cursor-pointer transition-all duration-500 transform hover:scale-102 relative ${index === currentStationIndex ? 'bg-white shadow-md' : ''}`;
+        stationElement.className = `flex items-center p-4 hover:bg-gray-50 cursor-pointer transition-all duration-300 relative ${index === currentStationIndex ? 'bg-gray-50' : ''}`;
         
         // Ajouter la barre de sélection avec une transition
         const selectionBar = document.createElement('div');
@@ -358,7 +358,7 @@ function renderStationsList(searchQuery = '') {
         stationElement.appendChild(selectionBar);
         
         stationElement.innerHTML += `
-            <div class="flex-shrink-0 w-16 h-16 bg-gray-50 rounded-lg overflow-hidden shadow-sm flex items-center justify-center">
+            <div class="flex-shrink-0 w-16 h-16 bg-gray-50 overflow-hidden shadow-sm flex items-center justify-center">
                 ${station.logo ? 
                     `<img src="${station.logo}" alt="${station.name}" class="w-full h-full object-contain p-1" 
                           onerror="this.onerror=null; this.src='${station.favicon}'; this.classList.add('p-2'); this.onerror=function() {
