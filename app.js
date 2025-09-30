@@ -789,11 +789,45 @@ function initMobileMenu() {
     });
 }
 
+// Gérer le formulaire d'inscription
+function handleSignupForm() {
+    const form = document.getElementById('signup-form');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Récupérer les données du formulaire
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Simuler une inscription (dans une vraie application, cela serait envoyé à un serveur)
+        try {
+            // Simuler un délai de traitement
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Stocker les informations localement (pour la démo)
+            localStorage.setItem('user', JSON.stringify({ name, email }));
+            
+            // Afficher un message de succès
+            alert('Inscription réussie !');
+            
+            // Réinitialiser le formulaire
+            form.reset();
+            
+        } catch (error) {
+            console.error('Erreur lors de l\'inscription:', error);
+            alert('Une erreur est survenue lors de l\'inscription. Veuillez réessayer.');
+        }
+    });
+}
+
 // Démarrer l'application lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
     init();
     initTheme();
     initMobileMenu();
+    handleSignupForm();
     
     // Afficher la bannière d'installation sur mobile
     if (isMobile && !isInStandaloneMode()) {
