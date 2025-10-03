@@ -822,10 +822,196 @@ function handleSignupForm() {
     });
 }
 
+// Gestion du panneau des paramètres
+function initSettings() {
+    const settingsBtn = document.getElementById('settings-btn');
+    const closeSettingsBtn = document.getElementById('close-settings');
+    const settingsPanel = document.getElementById('settings-panel');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const fontSizeSelect = document.getElementById('font-size');
+    const defaultVolume = document.getElementById('default-volume');
+    const volumeValue = document.getElementById('volume-value');
+    const autoplayToggle = document.getElementById('autoplay-toggle');
+    const qualityInputs = document.querySelectorAll('input[name="quality"]');
+    
+    // Éléments pour le fond d'écran
+    const changeBgBtn = document.getElementById('change-bg-btn');
+    const bgSelectorPanel = document.getElementById('bg-selector-panel');
+    const closeBgSelector = document.getElementById('close-bg-selector');
+    const appearanceSection = document.getElementById('appearance-section');
+    const bgPreviews = document.querySelectorAll('[data-bg]');
+    const customBgUrl = document.getElementById('custom-bg-url');
+    const applyBgUrl = document.getElementById('apply-bg-url');
+    const resetBg = document.getElementById('reset-bg');
+    
+    // Charger le fond d'écran sauvegardé
+    const savedBg = localStorage.getItem('customBackground');
+    if (savedBg) {
+        document.body.style.backgroundImage = `url('${savedBg}')`;
+        document.body.classList.add('bg-cover', 'bg-center', 'bg-fixed', 'bg-no-repeat');
+    }
+
+    // Ouvrir le panneau des paramètres
+    settingsBtn.addEventListener('click', () => {
+        settingsPanel.classList.remove('translate-x-full');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Fermer le panneau des paramètres
+    closeSettingsBtn.addEventListener('click', () => {
+        settingsPanel.classList.add('translate-x-full');
+        document.body.style.overflow = '';
+    });
+
+    // Gérer le thème sombre
+    darkModeToggle.checked = localStorage.getItem('darkMode') === 'true' || 
+                            (!localStorage.getItem('darkMode') && 
+                            window.matchMedia('(prefers-color-scheme: dark)').matches);
+    
+    darkModeToggle.addEventListener('change', (e) => {
+        document.documentElement.classList.toggle('dark', e.target.checked);
+        localStorage.setItem('darkMode', e.target.checked);
+    });
+
+    // Gérer la taille de la police
+    const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+    fontSizeSelect.value = savedFontSize;
+    document.documentElement.setAttribute('data-font-size', savedFontSize);
+    
+    fontSizeSelect.addEventListener('change', (e) => {
+        document.documentElement.setAttribute('data-font-size', e.target.value);
+        localStorage.setItem('fontSize', e.target.value);
+    });
+
+    // Gérer le volume par défaut
+    const savedVolume = localStorage.getItem('defaultVolume') || 70;
+    defaultVolume.value = savedVolume;
+    volumeValue.textContent = `${savedVolume}%`;
+    
+    defaultVolume.addEventListener('input', (e) => {
+        const value = e.target.value;
+        volumeValue.textContent = `${value}%`;
+        localStorage.setItem('defaultVolume', value);
+        
+        // Mettre à jour le volume actuel si le lecteur est initialisé
+        if (audioPlayer) {
+            audioPlayer.volume = value / 100;
+        }
+    });
+
+    // Gérer la lecture automatique
+    const savedAutoplay = localStorage.getItem('autoplay') !== 'false';
+    autoplayToggle.checked = savedAutoplay;
+    
+    autoplayToggle.addEventListener('change', (e) => {
+        localStorage.setItem('autoplay', e.target.checked);
+    });
+
+    // Gérer la qualité audio
+    const savedQuality = localStorage.getItem('audioQuality') || 'high';
+    document.querySelector(`#quality-${savedQuality}`).checked = true;
+    
+    qualityInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+            localStorage.setItem('audioQuality', e.target.value);
+            // Ici, vous pourriez ajouter la logique pour changer la qualité en temps réel
+            console.log('Qualité audio changée :', e.target.value);
+        });
+    });
+    
+    // Gérer le changement de fond d'écran
+    function applyBackground(imageUrl) {
+        if (imageUrl) {
+            document.body.style.backgroundImage = `url('${imageUrl}')`;
+            document.body.classList.add('bg-cover', 'bg-center', 'bg-fixed', 'bg-no-repeat');
+            localStorage.setItem('customBackground', imageUrl);
+        } else {
+            document.body.style.backgroundImage = '';
+            document.body.classList.remove('bg-cover', 'bg-center', 'bg-fixed', 'bg-no-repeat');
+            localStorage.removeItem('customBackground');
+        }
+    }
+    
+    // Afficher le sélecteur de fond
+    changeBgBtn.addEventListener('click', () => {
+        appearanceSection.classList.add('hidden');
+        bgSelectorPanel.classList.remove('hidden');
+    });
+    
+    // Fermer le sélecteur de fond
+    closeBgSelector.addEventListener('click', () => {
+        bgSelectorPanel.classList.add('hidden');
+        appearanceSection.classList.remove('hidden');
+    });
+    
+    // Appliquer un fond prédéfini
+    bgPreviews.forEach(preview => {
+        preview.addEventListener('click', () => {
+            const bgUrl = preview.getAttribute('data-bg');
+            applyBackground(bgUrl);
+            // Mettre en surbrillance la sélection
+            bgPreviews.forEach(p => p.classList.remove('border-blue-500', 'ring-2', 'ring-blue-200'));
+            preview.classList.add('border-blue-500', 'ring-2', 'ring-blue-200');
+        });
+    });
+    
+    // Appliquer une URL personnalisée
+    applyBgUrl.addEventListener('click', () => {
+        const url = customBgUrl.value.trim();
+        if (url) {
+            // Vérifier si l'URL est valide
+            const img = new Image();
+            img.onload = () => {
+                applyBackground(url);
+                // Mettre à jour l'aperçu
+                const preview = document.createElement('div');
+                preview.className = 'bg-cover bg-center h-16 rounded-md cursor-pointer border-2 border-blue-500 ring-2 ring-blue-200';
+                preview.style.backgroundImage = `url('${url}')`;
+                preview.setAttribute('data-bg', url);
+                preview.addEventListener('click', () => {
+                    applyBackground(url);
+                    bgPreviews.forEach(p => p.classList.remove('border-blue-500', 'ring-2', 'ring-blue-200'));
+                    preview.classList.add('border-blue-500', 'ring-2', 'ring-blue-200');
+                });
+                
+                // Ajouter au début de la grille
+                const grid = document.querySelector('.grid.grid-cols-3.gap-3');
+                grid.insertBefore(preview, grid.firstChild);
+                
+                // Limiter à 9 aperçus
+                if (grid.children.length > 9) {
+                    grid.removeChild(grid.lastChild);
+                }
+                
+                customBgUrl.value = '';
+            };
+            img.onerror = () => {
+                alert('Impossible de charger l\'image. Vérifiez l\'URL et réessayez.');
+            };
+            img.src = url;
+        }
+    });
+    
+    // Réinitialiser le fond
+    resetBg.addEventListener('click', () => {
+        applyBackground(null);
+        bgPreviews.forEach(p => p.classList.remove('border-blue-500', 'ring-2', 'ring-blue-200'));
+        customBgUrl.value = '';
+    });
+    
+    // Permettre d'appuyer sur Entrée pour valider l'URL
+    customBgUrl.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            applyBgUrl.click();
+        }
+    });
+}
+
 // Démarrer l'application lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
     init();
     initTheme();
+    initSettings();
     initMobileMenu();
     handleSignupForm();
     

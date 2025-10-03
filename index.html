@@ -40,8 +40,11 @@
                     <p class="text-sm text-gray-600 dark:text-gray-400">Écoutez vos stations préférées</p>
                 </div>
             </div>
-            <!-- Boutons d'authentification -->
+            <!-- Boutons d'authentification et paramètres -->
             <div class="hidden md:flex items-center space-x-4">
+                <button id="settings-btn" class="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors" title="Paramètres">
+                    <i class="fas fa-cog text-xl"></i>
+                </button>
                 <button class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                     Se connecter
                 </button>
@@ -205,6 +208,139 @@
         <div class="w-96 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto transition-colors">
             <div id="stations-list-right" class="divide-y divide-gray-200">
                 <!-- Stations de la barre droite -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Panneau des paramètres -->
+    <div id="settings-panel" class="fixed inset-y-0 right-0 w-96 bg-white dark:bg-gray-800 shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Paramètres</h2>
+                <button id="close-settings" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Section Fond d'écran (cachée par défaut) -->
+                <div id="bg-selector-panel" class="hidden bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-medium text-gray-900 dark:text-white">Fond d'écran</h3>
+                        <button id="close-bg-selector" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 mb-3">
+                        <div class="bg-cover bg-center h-16 rounded-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all" 
+                             style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"
+                             data-bg="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                        </div>
+                        <div class="bg-cover bg-center h-16 rounded-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all" 
+                             style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"
+                             data-bg="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                        </div>
+                        <div class="bg-cover bg-center h-16 rounded-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all" 
+                             style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"
+                             data-bg="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ou entrer une URL d'image</label>
+                        <div class="flex">
+                            <input type="text" id="custom-bg-url" class="flex-1 rounded-l-lg border border-r-0 border-gray-300 px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" placeholder="https://exemple.com/image.jpg">
+                            <button id="apply-bg-url" class="px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Appliquer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button id="reset-bg" class="w-full py-2 px-3 text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-600 rounded-md hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors">
+                            Réinitialiser le fond
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section Apparence -->
+                <div id="appearance-section" class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-medium text-gray-900 dark:text-white mb-3">Apparence</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Thème sombre</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Fond personnalisé</span>
+                            <button id="change-bg-btn" class="px-3 py-1 text-sm bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 rounded-md hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                                Changer
+                            </button>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Taille de la police</span>
+                            <select id="font-size" class="text-sm rounded-lg border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-gray-200 p-1">
+                                <option value="small">Petite</option>
+                                <option value="medium" selected>Moyenne</option>
+                                <option value="large">Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Audio -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-medium text-gray-900 dark:text-white mb-3">Audio</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-700 dark:text-gray-300">Volume par défaut</span>
+                                <span id="volume-value" class="text-sm text-gray-700 dark:text-gray-300">70%</span>
+                            </div>
+                            <input type="range" id="default-volume" min="0" max="100" value="70" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-600">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Lecture automatique</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="autoplay-toggle" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Qualité -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-medium text-gray-900 dark:text-white mb-3">Qualité audio</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input id="quality-high" name="quality" type="radio" value="high" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
+                            <label for="quality-high" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Haute qualité (128 kbps)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="quality-medium" name="quality" type="radio" value="medium" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="quality-medium" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Qualité moyenne (96 kbps)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="quality-low" name="quality" type="radio" value="low" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="quality-low" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Faible qualité (64 kbps)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section À propos -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-medium text-gray-900 dark:text-white mb-3">À propos</h3>
+                    <div class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <p>Radio en Ligne v1.0.0</p>
+                        <p>© 2025 Tous droits réservés</p>
+                        <div class="pt-2">
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">Politique de confidentialité</a> · 
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">Conditions d'utilisation</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
